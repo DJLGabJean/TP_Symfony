@@ -17,35 +17,83 @@ class ClothingFixtures extends Fixture implements DependentFixtureInterface
     
     public function load(ObjectManager $manager)
     {
-        $brands = $manager->getRepository(Brand::class)->findAll();
-        $categories = $manager->getRepository(Category::class)->findAll();
-        $sizes = $manager->getRepository(Size::class)->findAll();
 
         $nameClothings = [
-            'Hoodie',
-            'T-Shirt',
-            'Sweat-Shirt',
-            'Pullover'
+            'Dri-FIT Trail',
+            'JJELOGO Blocking Hood',
+            'Sportswear Club Fleece Jogger',
+            'Hoops 3.0 Mid Classic Vintage',
+            'Essentials Big Logo Tee',
+            'Hooded Box Quilt Puffer'
         ];
- 
-        foreach ($nameClothings as $key => $nameClothing) {
-            if (!isset($brands[$key]) || !isset($categories[$key]) || !isset($sizes[$key])) {
+
+        $nameBrands = [
+            'Nike',
+            'Jack & Jones',
+            'Nike',
+            'Adidas',
+            'Adidas',
+            'Superdry'
+        ];
+
+        $nameCategories = [
+            'Tee-Shirt',
+            'Hoodie',
+            'Pants',
+            'Shoes',
+            'Tee-Shirt',
+            'Jacket'
+        ];
+
+        $nameSizes = [
+            'S',
+            'M',
+            'M',
+            null,
+            'L',
+            'M'
+        ];
+
+        $brandRepository = $manager->getRepository(Brand::class);
+        $categoryRepository = $manager->getRepository(Category::class);
+        $sizeRepository = $manager->getRepository(Size::class);
+
+        for ($i = 0; $i < count($nameClothings); $i++) {
+            if (!isset($nameBrands[$i]) || !isset($nameCategories[$i]) || !isset($nameSizes[$i])) {
                 continue;
             }
-
-            $clothing = new Clothing();
-            $clothing->setName($nameClothing);
-            $clothing->setCategory($categories[$key]);
-            $clothing->addBrand($brands[$key]);
-            
-            foreach ($sizes as $size) {
-                $clothing->addSize($size);
+        
+            $brand = $brandRepository->findOneByName($nameBrands[$i]);
+            if (!$brand) {
+                $brand = new Brand();
+                $brand->setName($nameBrands[$i]);
+                $manager->persist($brand);
             }
-            
+        
+            $category = $categoryRepository->findOneByName($nameCategories[$i]);
+            if (!$category) {
+                $category = new Category();
+                $category->setName($nameCategories[$i]);
+                $manager->persist($category);
+            }
+        
+            $size = $sizeRepository->findOneByName($nameSizes[$i]);
+            if (!$size) {
+                $size = new Size();
+                $size->setName($nameSizes[$i]);
+                $manager->persist($size);
+            }
+        
+            $clothing = new Clothing();
+            $clothing->setName($nameClothings[$i]);
+            $clothing->setBrand($brand);
+            $clothing->addCategory($category);
+            $clothing->addSize($size);
+        
             $manager->persist($clothing);
-            echo($this->addReference(self::CLOTHING_REFERENCE . '_' . $key, $clothing));
+            $this->addReference(self::CLOTHING_REFERENCE . '_' . $i, $clothing);
         }
- 
+        
         $manager->flush();
     }
 
@@ -57,10 +105,6 @@ class ClothingFixtures extends Fixture implements DependentFixtureInterface
             SizeFixtures::class
         ];
     }
-
-
-
-
 }
 
 ?>

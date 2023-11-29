@@ -19,6 +19,15 @@ class ClothingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByName(string $name): ?Clothing
+    {
+        return $this->createQueryBuilder('cl')
+            ->where('cl.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
 
 ?>

@@ -12,14 +12,14 @@ class CategoryFixtures extends Fixture
     
     public function load(ObjectManager $manager)
     {
-        $nameCategorys = [
-            'Male',
-            'Female',
-            'Child',
-            'Mixed',
+        $nameCategories = [
+            'Tee-Shirt',
+            'Hoodie',
+            'Pants',
+            'Shoes',
         ];
  
-        foreach ($nameCategorys as $key => $nameCategory) {
+        foreach ($nameCategories as $key => $nameCategory) {
             $category = new Category();
             $category->setName($nameCategory);
             $manager->persist($category);

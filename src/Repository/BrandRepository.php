@@ -19,6 +19,15 @@ class BrandRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByName(string $name): ?Brand
+    {
+        return $this->createQueryBuilder('br')
+            ->where('br.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
 
 ?>

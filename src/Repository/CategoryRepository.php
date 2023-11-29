@@ -19,6 +19,15 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByName(string $name): ?Category
+    {
+        return $this->createQueryBuilder('ca')
+            ->where('ca.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
 
 ?>

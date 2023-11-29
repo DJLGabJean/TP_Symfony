@@ -19,6 +19,15 @@ class SizeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByName(string $name): ?Size
+    {
+        return $this->createQueryBuilder('si')
+            ->where('si.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
 
 ?>
