@@ -18,7 +18,7 @@ class Brand
     #[ORM\Column(length:255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Clothing::class, mappedBy: 'brands')]
+    #[ORM\OneToMany(targetEntity: Clothing::class, mappedBy: 'brand')]
     private $clothings;
 
     public function __construct()
@@ -26,10 +26,12 @@ class Brand
         $this->clothings = new ArrayCollection();
     }
 
+    
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getName() : ?string
     {
@@ -41,16 +43,16 @@ class Brand
         return $this;
     }
 
+
     public function getClothing() : Collection
     {
         return $this->clothings;
     }
-
     public function addClothing(Clothing $clothing): self
     {
         if (!$this->clothings->contains($clothing)) {
             $this->clothings[] = $clothing;
-            $clothing->addBrand($this);
+            $clothing->setBrand($this);
         }
 
         return $this;
@@ -58,13 +60,14 @@ class Brand
     public function removeClothing(Clothing $clothing): self
     {
         if ($this->clothings->removeElement($clothing)) {
-            $clothing->removeBrand($this);
+
+            if ($clothing->getBrand() === $this) {
+                $clothing->setBrand(null);
+            }
         }
 
         return $this;
     }
-
-
 
 }
 

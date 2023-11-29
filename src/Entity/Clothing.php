@@ -18,12 +18,12 @@ class Clothing
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'brand')]
-    private $category;
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'clothings')]
+    #[ORM\JoinTable(name: 'clothing_category')]
+    private $categories;
 
-    #[ORM\ManyToMany(targetEntity: Brand::class, inversedBy: 'clothings')]
-    #[ORM\JoinTable(name: 'clothing_brand')]
-    private $brands;
+    #[ORM\ManyToOne(targetEntity: Brand::class, inversedBy: 'clothings')]
+    private $brand;
 
     #[ORM\ManyToMany(targetEntity: Size::class, inversedBy: 'clothings')]
     #[ORM\JoinTable(name: 'clothing_size')]
@@ -31,7 +31,7 @@ class Clothing
 
     public function __construct()
     {
-        $this->brands = new ArrayCollection();
+        $this->categories = new ArrayCollection();
         $this->sizes = new ArrayCollection();
     }
 
@@ -51,36 +51,33 @@ class Clothing
     }
 
 
-    public function getCategory() : ?Category
+    public function addCategory(Category $category): self
     {
-        return $this->category;
-    }
-    public function setCategory($category) : self
-    {
-        $this->category = $category;
-        return $this;
-    }
-
-
-    public function getBrands() : Collection
-    {
-        return $this->brands;
-    }
-    public function addBrand(Brand $brand): self
-    {
-        if (!$this->brands->contains($brand)) {
-            $this->brands[] = $brand;
-            $brand->addClothing($this);
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->addClothing($this);
         }
 
         return $this;
     }
-    public function removeBrand(Brand $brand): self
+    public function removeCategory(Category $category): self
     {
-        if ($this->brands->removeElement($brand)) {
-            $brand->removeClothing($this);
+        if ($this->categories->removeElement($category)) {
+            $category->removeClothing($this);
         }
 
+        return $this;
+    }
+
+
+    public function getBrand() : ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand($brand) : self
+    {
+        $this->brand = $brand;
         return $this;
     }
 

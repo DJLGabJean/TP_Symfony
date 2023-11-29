@@ -18,13 +18,13 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(targetEntity: Clothing::class, mappedBy:'category')]
+    #[ORM\ManyToMany(targetEntity: Clothing::class, mappedBy:'categories')]
     #[ORM\JoinColumn(nullable: true)]
-    private $clothing;
+    private $clothings;
 
     public function __construct()
     {
-        $this->clothing = new ArrayCollection();
+        $this->clothings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,28 +42,26 @@ class Category
         $this->name = $name;
     }
 
-    public function getClothing(): Collection
+    public function getClothings(): Collection
     {
-        return $this->clothing;
+        return $this->clothings;
     }
-
-    public function addClothing(Clothing $clothing): void
+    public function addClothing(Clothing $clothing): self
     {
-        if (!$this->clothing->contains($clothing)) {
-            $this->clothing[] = $clothing;
-            $clothing->setCategory($this);
+        if (!$this->clothings->contains($clothing)) {
+            $this->clothings[] = $clothing;
+            $clothing->addCategory($this);
         }
+
+        return $this;
     }
-
-    public function removeClothing(Clothing $clothing): void
+    public function removeClothing(Clothing $clothing): self
     {
-        if ($this->clothing->contains($clothing)) {
-            $this->clothing->removeElement($clothing);
-     
-            if ($clothing->getCategory() === $this) {
-                $clothing->setCategory(null);
-            }
+        if ($this->clothings->removeElement($clothing)) {
+            $clothing->removeCategory($this);
         }
+
+        return $this;
     }
 }
 
