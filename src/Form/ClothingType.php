@@ -20,16 +20,24 @@ class ClothingType extends AbstractType
             ->add('name', TextType::class, options:['label' => 'Clothing Name'])
             ->add('categories', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'multiple' => true, 
+                'expanded' => true, 
+                'by_reference' => false, 
             ])
             ->add('brand', EntityType::class, [
                 'class' => Brand::class,
                 'choice_label' => 'name',
             ])
-            ->add('size', EntityType::class, [
+            ->add('sizes', EntityType::class, [
                 'class' => Size::class,
                 'choice_label' => 'name',
+                'multiple' => true, 
+                'expanded' => true, 
+                'by_reference' => false
             ]);
+
+            
     }
 
     public function configureOptions(OptionsResolver $resolver): void
