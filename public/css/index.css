@@ -26,13 +26,12 @@ thead {
     border: none;
 }
 
-td button {
+td input {
     border: none;
     background: none;
     cursor: pointer;
-    padding: 0 30px 0 10px;
-    /* Rappele moi les postions de padding */
-
+    margin: 0 10px;
+    
 }
 
 #btn_add {
