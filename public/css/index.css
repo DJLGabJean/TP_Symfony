@@ -1,0 +1,53 @@
+h1 {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+td,th {
+    border: 1px solid rgb(190, 190, 190);
+    padding: 20px;
+}
+
+td {
+    text-align: center;
+}
+
+thead {
+    background: rgb(238, 238, 238);
+}
+
+#td_btn {
+    border: none;
+}
+
+td button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0 30px 0 10px;
+    /* Rappele moi les postions de padding */
+
+}
+
+#btn_add {
+    background-image: url("../images/add_logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+    
+
+#btn_remove {
+    background-image: url("../images/remove_logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}

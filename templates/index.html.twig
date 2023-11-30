@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Clothing list</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Brand</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clothing in clothings %}
+            <tr>
+                <td>{{ clothing.id }}</td>
+                <td>{{ clothing.name }}</td>
+                <td>
+                    {% for category in clothing.categories %}
+                        {{ category.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if clothing.brand %}
+                        {{ clothing.brand.name }}
+                    {% endif %} 
+                </td>
+                <td>
+                    {% for size in clothing.sizes %}
+                        {{ size.name }}
+                        {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td id="td_btn">
+                    <button id="btn_add"></button>
+                    <button id="btn_remove"></button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
