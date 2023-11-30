@@ -20,7 +20,7 @@ class Category
 
     #[ORM\ManyToMany(targetEntity: Clothing::class, mappedBy:'categories')]
     #[ORM\JoinColumn(nullable: true)]
-    private $clothings;
+    private Collection $clothings;
 
     public function __construct()
     {

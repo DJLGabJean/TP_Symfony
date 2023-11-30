@@ -20,14 +20,14 @@ class Clothing
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'clothings')]
     #[ORM\JoinTable(name: 'clothing_category')]
-    private $categories;
+    private Collection $categories;
 
     #[ORM\ManyToOne(targetEntity: Brand::class, inversedBy: 'clothings')]
     private $brand;
 
     #[ORM\ManyToMany(targetEntity: Size::class, inversedBy: 'clothings')]
     #[ORM\JoinTable(name: 'clothing_size')]
-    private $sizes;
+    private Collection $sizes;
 
     public function __construct()
     {
@@ -51,6 +51,10 @@ class Clothing
     }
 
 
+    public function getCategories() : Collection
+    {
+        return $this->categories;
+    }
     public function addCategory(Category $category): self
     {
         if (!$this->categories->contains($category)) {

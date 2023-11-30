@@ -19,7 +19,7 @@ class Brand
     private ?string $name = null;
 
     #[ORM\OneToMany(targetEntity: Clothing::class, mappedBy: 'brand')]
-    private $clothings;
+    private Collection $clothings;
 
     public function __construct()
     {
