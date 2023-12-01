@@ -1,8 +1,43 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    {% include "_form.html.twig" %}
+    <h1>Add a Clothing</h1>
+
+    <div id= "form_add">
+        {{ form_start(clothingform) }}
+
+        <div id="info_name">
+            <span class="form_label">{{ form_label(clothingform.name) }}</span>
+            {{ form_widget(clothingform.name) }}
+            <span class="form_error_message">{{ form_errors(clothingform.name) }}</span>
+        </div>
+
+        <div id="info_categories">
+            <span class="form_label">{{ form_label(clothingform.categories) }}</span>
+            {{ form_widget(clothingform.categories) }}
+            <span class="form_error_message">{{ form_errors(clothingform.categories) }}</span>
+        </div>
+
+        <div id="info_brand">
+            <span class="form_label">{{ form_label(clothingform.brand) }}</span>
+            {{ form_widget(clothingform.brand, {'attr': {'style': 'font-size: 1.1rem;'}}) }}
+            <span class="form_error_message">{{ form_errors(clothingform.brand) }}</span>
+        </div>
+
+        <div id="info_sizes">
+            <span class="form_label">{{ form_label(clothingform.sizes) }}</span>
+            {{ form_widget(clothingform.sizes) }}
+        <span class="form_error_message">{{ form_errors(clothingform.sizes) }}</span>
+        </div>
+
+        <button id="btn_submit" type="submit">Submit</button>
+    </div>
+
+    {{ form_end(clothingform) }}
+
 {% endblock %}
+
+
 
 
 
