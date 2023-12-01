@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/clothing', name: 'app_clothing')]
 class ClothingController extends AbstractController
 {
-    #[Route('/liste', name: '_list')]
+    #[Route('/list', name: '_list')]
     public function liste(ClothingRepository $clothingRepository): Response
     {
         $clothings = $clothingRepository->findAll();
