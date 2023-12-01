@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1>Clothing list</h1>
+    <input type="button" id="btn_add" onclick="window.location.href='{{ path('app_clothing_add') }}'">Adding a clothing</input>
     <table>
         <thead>
             <tr>
@@ -34,8 +35,7 @@
                     {% endfor %}
                 </td>
                 <td id="td_btn">
-                    <input type="button" id="btn_add" onclick="window.location.href='{{ path('app_clothing_add') }}'"></input>
-                    <input type="button" id="btn_remove"></input>
+                    <input type="button" id="btn_remove" onclick="window.location.href='{{ path('app_clothing_remove', {'id': clothing.id}) }}'"></input>
                 </td>
             </tr>
         {% endfor %}

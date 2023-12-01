@@ -23,28 +23,21 @@ thead {
     background: rgb(238, 238, 238);
 }
 
-#td_btn {
-    border: none;
-}
-
-td input {
+#btn_add {
     border: none;
     background: none;
     cursor: pointer;
-    margin: 0 10px;
-    
-}
-
-#btn_add {
     background-image: url("../images/add_logo.png");
     background-repeat: no-repeat;
     background-size: contain;
     width: 20px;
     height: 20px;
 }
-    
 
 #btn_remove {
+    border: none;
+    background: none;
+    cursor: pointer;
     background-image: url("../images/remove_logo.png");
     background-repeat: no-repeat;
     background-size: contain;

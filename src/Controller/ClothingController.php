@@ -44,16 +44,16 @@ class ClothingController extends AbstractController
         ]);
     }
 
-    
+    #[Route("/remove/{id}", name:"_remove",)]
+    public function remove(Clothing $clothing, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $entityManager->remove($clothing);
+        $entityManager->flush();
+        $this->addFlash('success', 'Clothing successfully removed!');
+
+
+        return $this->redirectToRoute('app_clothing_list');
+    }
 
     
-
-    // #[Route('/ajout', name: 'ajout_clothing')]
-
-    // public function ajout(): Response
-    // {
-    //     return $this->render('index.html.twig', [
-    //         'controller_name' => 'ClothingController',
-    //     ]);
-    // }
 }
