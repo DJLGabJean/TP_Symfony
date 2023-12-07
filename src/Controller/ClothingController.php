@@ -55,5 +55,22 @@ class ClothingController extends AbstractController
         return $this->redirectToRoute('app_clothing_list');
     }
 
+    #[Route("/edit/{id}", name:"_edit",)]
+    public function edit(Clothing $clothing, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $clothingform = $this->createForm(ClothingType::class, $clothing);
+        $clothingform->handleRequest($request);
+
+        if ($clothingform->isSubmitted() && $clothingform->isValid()) {
+            $entityManager->persist($clothing);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_clothing_list');
+        }
+
+        return $this->render('edit.html.twig', [
+            'clothingform' => $clothingform->createView()
+        ]);
+    }
+
     
 }

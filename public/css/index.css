@@ -23,10 +23,18 @@ thead {
     background: rgb(238, 238, 238);
 }
 
-#btn_add {
-    border: none;
+input[type="button"] {
     background: none;
+    border: none;
     cursor: pointer;
+}
+
+#td_btn_remove {
+    background: none;
+    border: none;
+}
+
+#btn_add {
     background-image: url("../images/add_logo.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -34,13 +42,19 @@ thead {
     height: 20px;
 }
 
+#btn_edit {
+    background-image: url("../images/edit_logo.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+}
+
 #btn_remove {
-    border: none;
-    background: none;
-    cursor: pointer;
     background-image: url("../images/remove_logo.png");
     background-repeat: no-repeat;
     background-size: contain;
     width: 20px;
     height: 20px;
 }
+
