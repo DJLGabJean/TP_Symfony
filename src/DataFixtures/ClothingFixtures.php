@@ -21,10 +21,19 @@ class ClothingFixtures extends Fixture implements DependentFixtureInterface
         $nameClothings = [
             'Dri-FIT Trail',
             'JJELOGO Blocking Hood',
-            'Sportswear Club Fleece Jogger',
+            'Sportswear Club Fleece',
             'Hoops 3.0 Mid Classic Vintage',
             'Essentials Big Logo Tee',
             'Hooded Box Quilt Puffer'
+        ];
+
+        $urlImages = [
+            '../public/images/dri_fit_trail.png',
+            '../public/images/jjelogo_blocking_hood.png',
+            '../public/images/sportswear-club-fleece.png',
+            null,
+            '../public/images/adidas_essentials_big_logo.png',
+            '../public/images/hooded_box_quilt_puffer.png'
         ];
 
         $nameBrands = [
@@ -52,6 +61,15 @@ class ClothingFixtures extends Fixture implements DependentFixtureInterface
             null,
             'L',
             'M'
+        ];
+
+        $descriptions = [
+            'Help keep you dry and comfortable on your run.',
+            'Made of a soft cotton blend',
+            'Soft fleece fabric',
+            null,
+            'Made of cotton',
+            'Made of polyester'
         ];
 
         $brandRepository = $manager->getRepository(Brand::class);
@@ -86,9 +104,11 @@ class ClothingFixtures extends Fixture implements DependentFixtureInterface
         
             $clothing = new Clothing();
             $clothing->setName($nameClothings[$i]);
+            $clothing->setUrlImage($urlImages[$i]);
             $clothing->setBrand($brand);
             $clothing->addCategory($category);
             $clothing->addSize($size);
+            $clothing->setDescription($descriptions[$i]);
         
             $manager->persist($clothing);
             $this->addReference(self::CLOTHING_REFERENCE . '_' . $i, $clothing);
