@@ -18,6 +18,10 @@ class Clothing
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 350)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?string $url_image = null;
+
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'clothings')]
     #[ORM\JoinTable(name: 'clothing_category')]
     private Collection $categories;
@@ -28,6 +32,10 @@ class Clothing
     #[ORM\ManyToMany(targetEntity: Size::class, inversedBy: 'clothings')]
     #[ORM\JoinTable(name: 'clothing_size')]
     private Collection $sizes;
+
+    #[ORM\Column(length: 500)]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -40,6 +48,7 @@ class Clothing
         return $this->id;
     }
 
+
     public function getName() : ?string
     {
         return $this->name;
@@ -47,6 +56,17 @@ class Clothing
     public function setName(?string $name): self
     {
         $this->name = $name;
+        return $this;
+    }
+
+
+    public function getUrlImage() : ?string
+    {
+        return $this->url_image;
+    }
+    public function setUrlImage(?string $url_image): self
+    {
+        $this->url_image = $url_image;
         return $this;
     }
 
@@ -105,6 +125,16 @@ class Clothing
             $size->removeClothing($this);
         }
 
+        return $this;
+    }
+
+    public function getDescription() : ?string
+    {
+        return $this->description;
+    }
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
         return $this;
     }
 }
